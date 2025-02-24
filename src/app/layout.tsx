@@ -1,25 +1,33 @@
-import "../../styles/global.css";
-import { Metadata, Viewport } from "next";
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
 
-export const metadata: Metadata = {
-  title: "Remotion and Next.js",
-  description: "Remotion and Next.js",
-};
+const inter = Inter({ subsets: ['latin'] })
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-};
+export const metadata = {
+  title: 'NeuroticAI - Video Automation Platform',
+  description: 'Automate your social media content distribution',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="bg-background">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
+      </body>
     </html>
-  );
+  )
 }
